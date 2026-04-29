@@ -3,7 +3,7 @@
 An interactive, mobile-friendly map designed to connect Detroit families with essential resources. This map pulls real-time data from a Google Sheet and organizes it into 21 searchable categories.
 
 ## 🚀 Live Link
-[View the Live Map]([https://YOUR_USERNAME.github.io/YOUR_REPO_NAME/](https://cyclefamilies.github.io/map/map.html))
+[View the Live Map]([https://cyclefamilies.github.io/map/map.html])
 
 ## 🛠 Features
 - **Dynamic Filtering:** Horizontal category bar allowing users to switch between Food, Housing, Health, and more.
