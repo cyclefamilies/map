@@ -22,6 +22,15 @@
         }
         .nav-container::-webkit-scrollbar { display: none; }
 
+        /* Style for the Back to Website Button */
+        .back-btn {
+            text-decoration: none; display: flex; align-items: center; 
+            background: #fff; border: 2px solid #e2e8f0; padding: 10px 18px; 
+            border-radius: 25px; cursor: pointer; font-weight: 800; font-size: 13px; 
+            color: #1e293b; white-space: nowrap; transition: 0.2s;
+        }
+        .back-btn:hover { background: #f1f5f9; border-color: #cbd5e1; }
+
         .filter-btn {
             background: #f1f5f9; border: 1px solid #e2e8f0; padding: 10px 20px;
             border-radius: 25px; cursor: pointer; font-weight: 700; font-size: 13px;
@@ -54,6 +63,10 @@
 <body>
 
     <div class="nav-container" id="filter-bar">
+        <a href="https://detroitfamilies.wordpress.com/" class="back-btn">
+           ⬅ Back to Website
+        </a>
+
         <button class="filter-btn active" onclick="filterMap('all', this)">📍 All</button>
         <button class="filter-btn" onclick="filterMap('ACTIVITY FOR KIDS', this)">🎡 Kids Activities</button>
         <button class="filter-btn" onclick="filterMap('EDUCATION', this)">📚 Education</button>
@@ -97,7 +110,7 @@
         // 2. Your Live CSV Link
         var csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSsBXFpLasbCzhJtgwdRaiN3PwMC9cBSQxOP-xTXsJ-0gpeeJiMTTGV8WM2VTWCcvLWRVmHSL93m7-b/pub?output=csv';
 
-        // 3. Logic Engine: Groups messy sheet data into the 21 clean categories
+        // 3. Logic Engine
         function getCleanCategory(raw) {
             if (!raw) return "UNCATEGORIZED";
             let c = raw.toLowerCase().trim();
@@ -174,7 +187,7 @@
                                 <span class="popup-addr">${row["Address"] || ""}</span>
                                 <div class="btn-row">
                                     ${row["Phone"] ? `<a href="tel:${row["Phone"]}" class="btn-call popup-btn">📞 Call</a>` : ''}
-                                    <a href="http://googleusercontent.com/maps.google.com/maps?daddr=${lat},${lng}" target="_blank" class="btn-dir popup-btn">📍 Directions</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}" target="_blank" class="btn-dir popup-btn">📍 Directions</a>
                                 </div>
                                 ${row["Website"] ? `<a href="${row["Website"]}" target="_blank" class="btn-web">Visit Website →</a>` : ''}
                             </div>
