@@ -58,6 +58,32 @@
         .btn-dir { background: #f0fdf4; color: #16a34a; }
         .btn-web { border: 1px solid #e2e8f0; color: #64748b; display: block; text-align: center; font-size: 12px; padding: 8px; text-decoration: none; font-weight: 600; border-radius: 8px; }
         .btn-web:hover { background: #f8fafc; }
+
+        /* Pulsing User Location Effect */
+.user-location-pips {
+    width: 20px;
+    height: 20px;
+    background: #2563eb;
+    border: 3px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.user-location-pips::after {
+    content: '';
+    position: absolute;
+    top: -3px; left: -3px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 4px solid #2563eb;
+    animation: pulse 2s infinite;
+    opacity: 0;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(3); opacity: 0; }
+}
     </style>
 </head>
 <body>
@@ -145,9 +171,23 @@
         locateBtn.addTo(map);
         
         // Blue dot for user location
-        map.on('locationfound', function(e) {
-            L.circleMarker(e.latlng, { radius: 8, fillColor: '#2563eb', color: '#fff', weight: 3, fillOpacity: 1 }).addTo(map).bindPopup("You are here").openPopup();
-        });
+       map.on('locationfound', function(e) {
+    // Create the pulsing custom icon
+    const userIcon = L.divIcon({
+        className: 'user-location-pips',
+        iconSize: [20, 20],
+        iconAnchor: [10, 10]
+    });
+
+    // Remove old location marker if it exists to avoid stacking
+    if (window.userMarker) {
+        map.removeLayer(window.userMarker);
+    }
+
+    // Add the new pulsing marker
+    window.userMarker = L.marker(e.latlng, { icon: userIcon }).addTo(map)
+        .bindPopup("<b>You are here</b><br>Searching for nearby resources...").openPopup();
+});
 
         var allData = [];
         var markerGroup = L.layerGroup().addTo(map);
