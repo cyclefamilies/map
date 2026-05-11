@@ -103,6 +103,23 @@
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
+                // Add Locate Me Button
+        const locateBtn = L.control({ position: 'bottomright' });
+        
+        locateBtn.onAdd = function() {
+            const div = L.DomUtil.create('div', 'locate-button');
+            div.innerHTML = `<button style="background: white; border: 2px solid #ccc; border-radius: 4px; width: 40px; height: 40px; cursor: pointer; font-size: 20px; box-shadow: 0 1px 5px rgba(0,0,0,0.4);">🎯</button>`;
+            div.onclick = function() {
+                map.locate({setView: true, maxZoom: 15});
+            };
+            return div;
+        };
+        locateBtn.addTo(map);
+        
+        // Blue dot for user location
+        map.on('locationfound', function(e) {
+            L.circleMarker(e.latlng, { radius: 8, fillColor: '#2563eb', color: '#fff', weight: 3, fillOpacity: 1 }).addTo(map).bindPopup("You are here").openPopup();
+        });
 
         var allData = [];
         var markerGroup = L.layerGroup().addTo(map);
