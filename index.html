@@ -181,6 +181,7 @@
 
                     if (matches) {
                         var color = getMarkerColor(cleanCat);
+                       // FIND THIS SECTION IN YOUR CODE AND SWAP IT:
                         var popupHTML = `
                             <div class="popup-content">
                                 <span class="popup-title">${row["Name of Organization"] || "Resource"}</span>
@@ -192,8 +193,8 @@
                                 ${row["Website"] ? `<a href="${row["Website"]}" target="_blank" class="btn-web">Visit Website →</a>` : ''}
                             </div>
                         `;
-
-                        L.circleMarker([lat, lng], {
+                        
+                                                L.circleMarker([lat, lng], {
                             radius: 9, fillColor: color, color: "#fff", weight: 2.5, opacity: 1, fillOpacity: 0.9
                         }).bindPopup(popupHTML).addTo(markerGroup);
                         bounds.push([lat, lng]);
