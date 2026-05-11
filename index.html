@@ -106,9 +106,37 @@
                 // Add Locate Me Button
         const locateBtn = L.control({ position: 'bottomright' });
         
+        // Add Locate Me Button
+        const locateBtn = L.control({ position: 'bottomright' });
+        
         locateBtn.onAdd = function() {
             const div = L.DomUtil.create('div', 'locate-button');
-            div.innerHTML = `<button style="background: white; border: 2px solid #ccc; border-radius: 4px; width: 40px; height: 40px; cursor: pointer; font-size: 20px; box-shadow: 0 1px 5px rgba(0,0,0,0.4);">🎯</button>`;
+            // Using a clean SVG Crosshair icon
+            div.innerHTML = `
+                <button style="
+                    background: white; 
+                    border: none; 
+                    border-radius: 50%; 
+                    width: 45px; 
+                    height: 45px; 
+                    cursor: pointer; 
+                    display: flex; 
+                    align-items: center; 
+                    justify-content: center; 
+                    box-shadow: 0 2px 6px rgba(0,0,0,0.3); 
+                    margin-bottom: 15px; 
+                    margin-right: 5px;
+                    transition: background 0.2s;
+                " onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='white'">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="22" y1="12" x2="18" y2="12"></line>
+                        <line x1="6" y1="12" x2="2" y2="12"></line>
+                        <line x1="12" y1="6" x2="12" y2="2"></line>
+                        <line x1="12" y1="22" x2="12" y2="18"></line>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </button>`;
             div.onclick = function() {
                 map.locate({setView: true, maxZoom: 15});
             };
